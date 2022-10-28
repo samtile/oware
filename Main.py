@@ -1,4 +1,6 @@
+import threading
 from tkinter import *
+import time
 
 PotArray = []
 
@@ -19,6 +21,7 @@ def distribute_beans(pot_number):
         PotArray[current_pot].beans += 1
         PotArray[pot_number].beans -= 1
         remaining_beans -= 1
+        time.sleep(0.5)
         refresh_pots_on_screen()
 
 
@@ -45,7 +48,7 @@ for i in range(2):
         k = j
         if i == 1:
             k += 6
-        Buttons.append(Button(frame, text="", command=lambda ztemp=k: distribute_beans(ztemp)))
+        Buttons.append(Button(frame, text="", command= lambda ztemp=k: threading.Thread(target=distribute_beans, args=[ztemp]).start()))
         if k < 6:
             Buttons[k].grid(row=i, column=j, padx=5, pady=3, ipadx=10)
         else:
@@ -56,7 +59,7 @@ for i in range(2):
         k = j
         if i == 1:
             k += 6
-        Pots.append(Text(frame, height=1, width=10))
+        Pots.append(Label(frame, height=1, width=10, borderwidth=3, relief="solid"))
         if k < 6:
             Pots[k].grid(row=i + 1, column=j, padx=5, pady=3, ipadx=10)
         else:
@@ -70,9 +73,7 @@ class Pot:
 
 def refresh_pots_on_screen():
     for x in range(12):
-        print("x", x)
-        Pots[x].delete("insert linestart", "insert lineend")
-        Pots[x].insert(END, PotArray[x].beans)
+        Pots[x].configure(text=PotArray[x].beans)
 
 
 for x in range(12):
