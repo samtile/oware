@@ -13,6 +13,7 @@ def distribute_beans(pot_number):
     current_pot = pot_number
     while remaining_beans > 0:
         print("Remaining", remaining_beans)
+        Pots[current_pot].configure(relief="ridge")
         if current_pot == 11:
             current_pot = 0
         else:
