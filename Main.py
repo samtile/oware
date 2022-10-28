@@ -49,7 +49,7 @@ for i in range(2):
         if k < 6:
             Buttons[k].grid(row=i, column=j, padx=5, pady=3, ipadx=10)
         else:
-            Buttons[k].grid(row=i + 2, column=j, padx=5, pady=3, ipadx=10)
+            Buttons[k].grid(row=i + 2, column=5-j, padx=5, pady=3, ipadx=10)
 
 for i in range(2):
     for j in range(6):
@@ -57,9 +57,10 @@ for i in range(2):
         if i == 1:
             k += 6
         Pots.append(Text(frame, height=1, width=10))
-        Pots[k].grid(row=i + 1, column=j, padx=5, pady=3, ipadx=10)
-
-
+        if k < 6:
+            Pots[k].grid(row=i + 1, column=j, padx=5, pady=3, ipadx=10)
+        else:
+            Pots[k].grid(row=i + 1, column=5-j, padx=5, pady=3, ipadx=10)
 # end GUI stuff
 
 
