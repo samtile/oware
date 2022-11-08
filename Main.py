@@ -7,9 +7,9 @@ PotArray = []
 
 def distribute_beans(pot_number):
     print(pot_number)
-    if PotArray[pot_number].beans == 0:
+    if PotArray[pot_number] == 0:
         return
-    remaining_beans = PotArray[pot_number].beans
+    remaining_beans = PotArray[pot_number]
     current_pot = pot_number
     while remaining_beans > 0:
         print("Remaining", remaining_beans)
@@ -19,8 +19,8 @@ def distribute_beans(pot_number):
         else:
             current_pot += 1
         print("Current ", current_pot)
-        PotArray[current_pot].beans += 1
-        PotArray[pot_number].beans -= 1
+        PotArray[current_pot] += 1
+        PotArray[pot_number] -= 1
         remaining_beans -= 1
         time.sleep(0.5)
         refresh_pots_on_screen()
@@ -68,18 +68,13 @@ for i in range(2):
 # end GUI stuff
 
 
-class Pot:
-    beans = 4
-
-
 def refresh_pots_on_screen():
     for x in range(12):
-        Pots[x].configure(text=PotArray[x].beans)
+        Pots[x].configure(text=PotArray[x])
 
 
 for x in range(12):
-    pot = Pot()
-    PotArray.append(pot)
+    PotArray.append(4)
 
 refresh_pots_on_screen()
 window.mainloop()
