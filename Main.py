@@ -23,11 +23,11 @@ def process_turn(pot_number):
     pots_sown = []
     remaining_beans = pots[pot_number]
     current_pot = pot_number
-    pot_fields[current_pot].configure(relief="raised")
+    pot_fields[current_pot].configure(relief="solid")
     previous_pot = -1
     while remaining_beans > 0:
         if previous_pot != -1:
-            pot_fields[previous_pot].configure(relief="ridge")
+            pot_fields[previous_pot].configure(relief="groove")
         if current_pot == 11:
             current_pot = 0
         else:
@@ -45,7 +45,7 @@ def process_turn(pot_number):
     check_and_process_capture(set(player_two_pots) & set(pots_sown) if game.current_player == 0 else set(player_one_pots) & set(pots_sown))
 
     for x in range(12):
-        pot_fields[x].configure(relief="solid")
+        pot_fields[x].configure(relief="ridge")
     check_for_win()
     game.current_player = 1 if game.current_player == 0 else 0
     enable_buttons()
@@ -56,8 +56,8 @@ window.title("Oware")
 
 ws = window.winfo_screenwidth()
 hs = window.winfo_screenheight()
-w = 800
-h = 500
+w = 700
+h = 200
 x = (ws / 2) - (w / 2)
 y = (hs / 2) - (h / 2)
 
@@ -66,8 +66,11 @@ window.geometry('%dx%d+%d+%d' % (w, h, x, y))
 frame = Frame(window, width=800, height=500)
 frame.grid(row=10, column=10, padx=10, pady=5)
 
-score_fields = [Label(frame, height=1, width=10, borderwidth=3, relief="solid"),
-                Label(frame, height=1, width=10, borderwidth=3, relief="solid")]
+player_labels = [Label(frame, height=1, width=10, borderwidth=3, relief="flat"),
+                Label(frame, height=1, width=10, borderwidth=3, relief="flat")]
+
+score_fields = [Label(frame, height=1, width=10, borderwidth=3, relief="ridge"),
+                Label(frame, height=1, width=10, borderwidth=3, relief="ridge")]
 
 pot_buttons = []
 pot_fields = []
@@ -89,7 +92,7 @@ for i in range(2):
         k = j
         if i == 1:
             k += 6
-        pot_fields.append(Label(frame, height=1, width=10, borderwidth=3, relief="solid"))
+        pot_fields.append(Label(frame, height=1, width=10, borderwidth=3, relief="ridge"))
         if k < 6:
             pot_fields[k].grid(row=i + 2, column=j, padx=5, pady=3, ipadx=10)
         else:
@@ -114,15 +117,20 @@ def refresh_screen():
 def enable_buttons():
     for i in player_one_pots if game.current_player == 1 else player_two_pots:
         pot_buttons[i].configure(state="disabled")
+        pot_buttons[i].configure(relief="sunken")
     for j in player_one_pots if game.current_player == 0 else player_two_pots:
         pot_buttons[j].configure(state="normal")
+        pot_buttons[j].configure(relief="raised")
     for k in range(12):
         if pots[k]==0:
             pot_buttons[k].configure(state="disabled")
+            pot_buttons[k].configure(relief="sunken")
+
 
 def disable_buttons():
     for i in range(12):
         pot_buttons[i].configure(state="disabled")
+        pot_buttons[i].configure(relief="sunken")
 
 
 def check_for_win():
@@ -151,9 +159,11 @@ for x in range(12):
 game = GameState()
 refresh_screen()
 
-score_fields[0].grid(row=0, column=0, padx=5, pady=3, ipadx=10)
-score_fields[1].grid(row=6, column=0, padx=5, pady=3, ipadx=10)
-score_fields[0].configure(text=str(game.scores[0]))
-score_fields[1].configure(text=str(game.scores[1]))
+player_labels[0].grid(row=0, column=0, padx=5, pady=3, ipadx=10)
+score_fields[0].grid(row=0, column=1, padx=5, pady=3, ipadx=10)
+player_labels[1].grid(row=6, column=0, padx=5, pady=3, ipadx=10)
+score_fields[1].grid(row=6, column=1, padx=5, pady=3, ipadx=10)
+player_labels[0].configure(text="Player 1 Score:")
+player_labels[1].configure(text="Player 2 Score:")
 enable_buttons()
 window.mainloop()
