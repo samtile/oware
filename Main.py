@@ -135,7 +135,7 @@ def disable_buttons():
 
 def check_for_win():
     if game.scores[0] >= 25:
-        messagebox.showinfo(message="Player 3 has won!")
+        messagebox.showinfo(message="Player 1 has won!")
         new_game()
     if game.scores[1] >= 25:
         messagebox.showinfo(message="Player 2 has won!")
