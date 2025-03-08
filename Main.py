@@ -109,6 +109,32 @@ class GameState:
 def refresh_screen():
     for x in range(12):
         pot_fields[x].configure(text=pots[x])
+        if pots[x] == 0:
+            pot_fields[x].config(bg='grey')
+        elif pots[x] == 1:
+            pot_fields[x].config(bg='red')
+        elif pots[x] == 2:
+            pot_fields[x].config(bg='orange')
+        elif pots[x] == 3:
+            pot_fields[x].config(bg='yellow')
+        elif pots[x] == 4:
+            pot_fields[x].config(bg='gold')
+        elif pots[x] == 5:
+            pot_fields[x].config(bg='green')
+        elif pots[x] == 6:
+            pot_fields[x].config(bg='darkgreen')
+        elif pots[x] == 7:
+            pot_fields[x].config(bg='blue')
+        elif pots[x] == 8:
+            pot_fields[x].config(bg='darkblue')
+        elif pots[x] == 9:
+            pot_fields[x].config(bg='purple')
+        elif pots[x] == 10:
+            pot_fields[x].config(bg='hotpink')
+        elif pots[x] == 11:
+            pot_fields[x].config(bg='pink')
+        else:
+            pot_fields[x].config(bg='white')
     for y in range(2):
         score_fields[y].configure(text=game.scores[y])
 
