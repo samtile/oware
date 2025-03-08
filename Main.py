@@ -1,5 +1,4 @@
 import threading
-import tkinter.messagebox
 from tkinter import *
 import time
 from tkinter import messagebox
